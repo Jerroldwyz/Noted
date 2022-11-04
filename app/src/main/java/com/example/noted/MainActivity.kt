@@ -2,14 +2,18 @@ package com.example.noted
 
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color.blue
+import android.graphics.Color.green
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -40,6 +44,40 @@ class MainActivity : AppCompatActivity() {
         showNotes()
         onClickListener()
 
+    }
+
+    /***
+     * Creates the menu options in the main activity with 3 choices of colors to change
+     * the background color
+     */
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.color_options, menu)
+        return true
+    }
+
+    /***
+     * This acts as a on click listener for the items in the menu options.
+     * It will change the color of the main activity background respective to the
+     * option selected.
+     */
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val relativeLay = findViewById<RelativeLayout>(R.id.relativeLayout)
+        return when (item.itemId) {
+            R.id.yellow -> {
+                relativeLay.setBackgroundResource(R.color.bgYellow)
+                true
+            }
+            R.id.green -> {
+                relativeLay.setBackgroundResource(R.color.bgGreen)
+                true
+            }
+            R.id.blue -> {
+                relativeLay.setBackgroundResource(R.color.bgBlue)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     /***

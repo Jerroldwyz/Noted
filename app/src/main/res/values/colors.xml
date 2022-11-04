@@ -8,4 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="darkGrey">#333333</color>
+    <color name="yellow">#FFE338</color>
+    <color name="bgYellow">#fdc817</color>
+    <color name="bgGreen">#68BB59</color>
+    <color name="green">#ACDF87</color>
+    <color name="bgBlue">#55AAFF</color>
+    <color name="blue">#77CCFF</color>
 </resources>
