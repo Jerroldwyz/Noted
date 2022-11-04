@@ -2,11 +2,12 @@ package com.example.noted
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import java.time.LocalDate
-import java.util.*
 
+/***
+ * Class for a Note object, having a title, a body and a date.
+ * It is also the entity for the note database.
+ */
 @Entity(tableName = "notes")
 data class Note(
     @PrimaryKey val id: Int,

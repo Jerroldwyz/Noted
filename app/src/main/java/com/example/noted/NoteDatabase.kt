@@ -5,6 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+/***
+ * Database that stores the notes table. It contains the Note entity.
+ * It should have 4 columns, with the first one being an integer for the Note id,
+ * second and third one being the Note title and body, and the last one being
+ * the date the Note was set to be.
+ */
 @Database(entities = [Note::class], version = 2)
 abstract class NoteDatabase : RoomDatabase(){
 
