@@ -11,7 +11,7 @@ import androidx.room.RoomDatabase
  * second and third one being the Note title and body, and the last one being
  * the date the Note was set to be.
  */
-@Database(entities = [Note::class], version = 2)
+@Database(entities = [Note::class], version = 3)
 abstract class NoteDatabase : RoomDatabase(){
 
     abstract fun notesDAO(): NotesDAO

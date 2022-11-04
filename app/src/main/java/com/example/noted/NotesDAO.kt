@@ -1,9 +1,6 @@
 package com.example.noted
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 /***
  * Data access object (DAO) of the Note object.
@@ -21,4 +18,7 @@ interface NotesDAO {
 
     @Delete
     fun deleteNote(note: Note)
+
+    @Update
+    fun updateNote(note: Note)
 }

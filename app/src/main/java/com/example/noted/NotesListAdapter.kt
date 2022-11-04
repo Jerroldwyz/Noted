@@ -1,13 +1,19 @@
 package com.example.noted
 
+import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
+import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import java.text.DateFormat
+import java.util.*
 
 class NotesListAdapter(val context: Context, val notesList: MutableList<Note>, val noteDB: NoteDatabase): RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
 
@@ -32,7 +38,7 @@ class NotesListAdapter(val context: Context, val notesList: MutableList<Note>, v
      * This function is responsible for binding each of the note item to the recycler view holder.
      */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = notesList[position]
+        var item = notesList[position]
         holder.bind(item)
 
         /***
@@ -59,6 +65,50 @@ class NotesListAdapter(val context: Context, val notesList: MutableList<Note>, v
                 .show()
             true
         })
+
+        /***
+         * This section of code is responsible for allowing the user to edit the note
+         * It reads the existing data from the Note and then updates the Note when or if the user
+         * edits anything inside.
+         */
+        holder.v.setOnClickListener(){
+            val dialog = Dialog(context)
+            dialog.setContentView(R.layout.add_note_layout)
+
+            val addButton = dialog.findViewById<Button>(R.id.addNote)
+            addButton.text = "Update"
+
+            val noteBody = dialog.findViewById<EditText>(R.id.noteBody)
+            val noteTitle = dialog.findViewById<EditText>(R.id.noteTitle)
+            val dateButton = dialog.findViewById<Button>(R.id.dateButton)
+            noteBody.setText(item.body)
+            noteTitle.setText(item.title)
+            dateButton.text = item.date
+
+            dateButton.setOnClickListener(){
+                val newFragment = DatePickerFragment(dateButton)
+                newFragment.show((context as MainActivity).supportFragmentManager, "datePicker")
+            }
+
+            addButton.setOnClickListener(){
+                val title = noteTitle.text.toString()
+                val body = noteBody.text.toString()
+                val id = item.id
+
+                if(body != ""){
+                    val date = dateButton.text.toString()
+                    (context as MainActivity).noteDAO.updateNote(Note(id, title, body, date))
+                    context.showNotes()
+                    dialog.dismiss()
+                }else if(title == ""){
+                    AlertDialog.Builder(context).setTitle("Invalid input").setMessage("The title of note is empty!").show()
+                }else if(body ==""){
+                    AlertDialog.Builder(context).setTitle("Invalid input").setMessage("The body of note is empty!").show()
+                }
+            }
+
+            dialog.show()
+        }
 
     }
 

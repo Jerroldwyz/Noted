@@ -11,9 +11,9 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "notes")
 data class Note(
     @PrimaryKey val id: Int,
-    @ColumnInfo(name = "title") val title: String?,
-    @ColumnInfo(name = "body") val body: String?,
-    @ColumnInfo(name = "date") val date: String?
+    @ColumnInfo(name = "title") var title: String?,
+    @ColumnInfo(name = "body") var body: String?,
+    @ColumnInfo(name = "date") var date: String?
 ){
 
 }

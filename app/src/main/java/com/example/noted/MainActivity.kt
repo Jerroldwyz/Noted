@@ -22,15 +22,15 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     //Late init variables because they need to be used in a few functions
     //initializing the notes database using room library
-    private lateinit var noteDB : NoteDatabase
+    lateinit var noteDB : NoteDatabase
     //Data access object for room
-    private lateinit var noteDAO: NotesDAO
+    lateinit var noteDAO: NotesDAO
     //Recycler view
-    private lateinit var recyclerNoted: RecyclerView
+    lateinit var recyclerNoted: RecyclerView
     //Find view by id variables
-    private lateinit var floatingBtn: FloatingActionButton
-    private lateinit var linearLayout: LinearLayout
-    private lateinit var dateButton: Button
+    lateinit var floatingBtn: FloatingActionButton
+    lateinit var linearLayout: LinearLayout
+    lateinit var dateButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +70,9 @@ class MainActivity : AppCompatActivity() {
         recyclerNoted = findViewById<RecyclerView>(R.id.recyclerNoted)
         floatingBtn = findViewById<FloatingActionButton>(R.id.fab)
         linearLayout = findViewById<LinearLayout>(R.id.Noted)
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.add_note_layout)
+        dateButton = dialog.findViewById<Button>(R.id.dateButton)
 
         recyclerNoted.layoutManager = GridLayoutManager(this,2)
 
@@ -119,14 +122,14 @@ class MainActivity : AppCompatActivity() {
             dialog.show()
         }
     }
-
     /***
      * showDatePickerDialog is responsible for showing the date picker dialog
      * when the pick date button is clicked on.
      * This function is called in the add_note_layout.xml
      ***/
-    fun showDatePickerDialog(v:View){
+    fun showDatePickerDialog(v: View){
         val newFragment = DatePickerFragment(dateButton)
         newFragment.show(supportFragmentManager, "datePicker")
     }
+
 }
